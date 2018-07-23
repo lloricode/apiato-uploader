@@ -1,0 +1,10 @@
+{
+  "name": "lloricode/apiato-uploader",
+  "description": "Uploader Container.",
+  "type": "apiato-container",
+  "autoload": {
+    "files": [
+      "Helpers/mix.php"
+    ]
+  }
+}
