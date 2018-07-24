@@ -16,11 +16,13 @@ class FindDownloadUploaderByIdAction extends Action
         $wholePath = $uploader->is_storage ? storage_path() : public_path();
         $wholePath .= $uploader->path;
 
+        $label = $uploader->label?:$uploader->uploaderable->uploaderRules()->fileNamePrefix;
+
         return response()->download(
             $wholePath,
-            'test.' . $uploader->extension,
+            $label . now()->format('Ymd_Hi') . '.' . $uploader->extension,
             [
-                'Content-Type: ' . $uploader->type
+                'Content-Type: ' . $uploader->content_type
             ]
         );
     }

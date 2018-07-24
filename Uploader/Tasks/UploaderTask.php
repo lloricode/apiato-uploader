@@ -24,7 +24,7 @@ class UploaderTask extends Task
         $this->repository = $repository;
     }
 
-    public function run(UploaderContract $model, UploadedFile $file)
+    public function run(UploaderContract $model, UploadedFile $file, string $label = null)
     {
         $modelRules = $model->uploaderRules();
 
@@ -32,7 +32,7 @@ class UploaderTask extends Task
             throw new ValidationFailedException('Max file size allowed is ' . formatBytesUnits($modelRules->maxSize));
         }
 
-        $fileName = $modelRules->fileNamePrefix . md5(now()->format('Ymdhis'));
+        $fileName = md5(now()->format('Ymdhis').$model->id);
         $filePath = $this->_storagePath($modelRules->isStorage, get_class($model)). '/'. $fileName;
 
         $this->_fileSystem->copy($file->getRealPath(), $filePath);
@@ -41,10 +41,11 @@ class UploaderTask extends Task
 
         try {
             return $this->repository->create([
+                'label' => $label,
                 'uploaderable_id' => $model->id,
                 'uploaderable_type' => get_class($model),
-                'user_id' => auth()->user()->id,
-                'type' =>  $file->getClientMimeType(),
+                'user_id' => app()->runningInConsole() ? 1 : auth()->user()->id,
+                'content_type' =>  $file->getClientMimeType(),
                 'extension' => $file->getClientOriginalExtension(),
                 'path' => $pathToSave,
                 'is_storage' => $modelRules->isStorage,
@@ -64,9 +65,11 @@ class UploaderTask extends Task
 
     private function _storagePath($isStorage, $modelclass)
     {
+        $modelClassArray = explode('\\', $modelclass);
+
         $folder = Uploader::PATH_FOLDER;
         $storage =  $isStorage ? storage_path("app/$folder/") : public_path("assets/$folder/");
-        $storage .= md5($modelclass);
+        $storage .= $modelClassArray[count($modelClassArray)-1];
 
         return $this->_checkPathExist($storage);
     }

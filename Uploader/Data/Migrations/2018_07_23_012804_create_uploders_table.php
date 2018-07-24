@@ -14,9 +14,10 @@ class CreateUplodersTable extends Migration
         Schema::create('uploaders', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('label')->nullable();
             $table->morphs('uploaderable');
             $table->integer('user_id')->unsigned();
-            $table->string('type');
+            $table->string('content_type');
             $table->string('extension');
             $table->string('path')->collation = 'utf8_unicode_ci';
             $table->unsignedInteger('bytes')->comment('Size in Bytes');

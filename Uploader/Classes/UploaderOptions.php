@@ -16,7 +16,7 @@ class UploaderOptions
 
     public function reset(): self
     {
-        $this->fileNamePrefix = 'file-';
+        $this->fileNamePrefix = 'file';
         $this->isStorage = true;
         $this->maxSize = 20000000;  // 20 mb in byte decimal
 

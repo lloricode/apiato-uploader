@@ -4,12 +4,12 @@
  * @apiGroup           Uploader
  * @apiName            download
  *
- * @api                {GET} /v1/uploaders/:id Endpoint title here..
- * @apiDescription     Endpoint description here..
+ * @api                {GET} /v1/uploaders/:id Delete Uploaded File
+ * @apiDescription     Delete Uploaded File
  *
  * @apiVersion         1.0.0
  * @apiPermission      Authenticated User
- * *
+ * 
  * @apiSuccessExample  {json}  Success-Response:
  * HTTP/1.1 200 OK
  */

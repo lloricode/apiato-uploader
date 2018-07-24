@@ -14,10 +14,11 @@ class Uploader extends Model
         'uploaderable_type',
         'user_id',
         'extension',
-        'type',
+        'content_type',
         'path',
         'bytes',
         'is_storage',
+        'label',
     ];
 
     protected $attributes = [
