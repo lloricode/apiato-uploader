@@ -33,7 +33,7 @@ class UploaderTask extends Task
         }
 
         $fileName = md5(now()->format('Ymdhis').$model->id);
-        $filePath = $this->_storagePath($modelRules->isStorage, get_class($model)). '/'. $fileName;
+        $filePath = $this->_storagePath($modelRules->isStorage, $model). '/'. $fileName;
 
         $this->_fileSystem->copy($file->getRealPath(), $filePath);
 
@@ -63,13 +63,16 @@ class UploaderTask extends Task
         return str_replace($pathToRemove, '', $path);
     }
 
-    private function _storagePath($isStorage, $modelclass)
+    private function _storagePath($isStorage, $model)
     {
+        $modelclass = strtolower(get_class($model));
+
         $modelClassArray = explode('\\', $modelclass);
 
         $folder = Uploader::PATH_FOLDER;
         $storage =  $isStorage ? storage_path("app/$folder/") : public_path("assets/$folder/");
         $storage .= $modelClassArray[count($modelClassArray)-1];
+        $storage .= '/' . md5($model->id);
 
         return $this->_checkPathExist($storage);
     }
