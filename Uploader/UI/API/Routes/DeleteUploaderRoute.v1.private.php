@@ -4,8 +4,8 @@
  * @apiGroup           Uploader
  * @apiName            delete
  *
- * @api                {DELETE} /v1/uploaders/:id Uploader Download link
- * @apiDescription     Uploader Download link
+ * @api                {DELETE} /v1/uploaders/:id Delete Uploaded File
+ * @apiDescription     Delete Uploaded File
  *
  * @apiVersion         1.0.0
  * @apiPermission      Authenticated User
