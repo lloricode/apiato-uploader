@@ -1,7 +1,14 @@
 {
   "name": "lloricode/apiato-uploader",
-  "description": "Uploader Container.",
-  "type": "apiato-container",
+  "description": "Manage uploading file in Apiato project",
+  "type": ["apiato-container", "library"],
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Lloric Mayuga Garcia",
+          "email": "lloricode@gmail.com"
+      }
+  ],
   "autoload": {
     "files": [
       "Helpers/mix.php"
