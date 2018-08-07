@@ -19,6 +19,7 @@ class Uploader extends Model
         'bytes',
         'is_storage',
         'label',
+        'client_original_name',
     ];
 
     protected $attributes = [

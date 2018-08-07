@@ -41,6 +41,7 @@ class UploaderTask extends Task
 
         try {
             return $this->repository->create([
+                'client_original_name' => $file->getClientOriginalName(),
                 'label' => $label,
                 'uploaderable_id' => $model->id,
                 'uploaderable_type' => get_class($model),

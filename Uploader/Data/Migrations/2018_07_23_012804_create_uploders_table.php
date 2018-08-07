@@ -15,6 +15,7 @@ class CreateUplodersTable extends Migration
             $table->increments('id');
 
             $table->string('label')->nullable();
+            $table->string('client_original_name')->nullable();
             $table->morphs('uploaderable');
             $table->integer('user_id')->unsigned();
             $table->string('content_type');
