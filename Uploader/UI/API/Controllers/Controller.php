@@ -32,7 +32,7 @@ class Controller extends ApiController
      */
     public function deleteUploader(DeleteUploaderRequest $request)
     {
-        Apiato::call('Uploader@DeleteUploaderAction', [$request]);
+        Apiato::transactionalCall('Uploader@DeleteUploaderAction', [$request]);
 
         return $this->noContent();
     }

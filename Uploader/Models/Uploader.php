@@ -48,4 +48,12 @@ class Uploader extends Model
      * A resource key to be used by the the JSON API Serializer responses.
      */
     protected $resourceKey = 'uploaders';
+
+    /**
+     * Get all of the owning uploaderable models.
+     */
+    public function uploaderable()
+    {
+        return $this->morphTo();
+    }
 }

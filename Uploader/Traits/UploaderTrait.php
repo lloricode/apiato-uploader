@@ -17,4 +17,9 @@ trait UploaderTrait
     {
         return $this->morphMany(Model::class, 'uploaderable');
     }
+
+    public function uploaderDelete()
+    {
+        $this->delete();
+    }
 }
