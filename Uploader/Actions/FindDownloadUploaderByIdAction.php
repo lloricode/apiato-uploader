@@ -19,7 +19,7 @@ class FindDownloadUploaderByIdAction extends Action
 
         $label = $uploader->label?:$uploderableRules->fileNamePrefix;
 
-        return Storage::disk($uploader->is_storage ? 'local' : 'public')->download(
+        return Storage::disk($uploader->storage_driver)->download(
             $uploader->path,
             $label . now()->format('Ymd_Hi') . '.' . $uploader->extension,
             [

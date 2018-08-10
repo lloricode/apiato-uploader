@@ -17,7 +17,7 @@ class Uploader extends Model
         'content_type',
         'path',
         'bytes',
-        'is_storage',
+        'storage_driver',
         'label',
         'client_original_name',
     ];
@@ -31,7 +31,6 @@ class Uploader extends Model
         'uploaderable_id',
         'uploaderable_type',
         'user_id',
-        'is_storage',
         'path',
     ];
 

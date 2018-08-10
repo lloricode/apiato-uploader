@@ -14,7 +14,7 @@ class DeleteUploaderAction extends Action
         $uploader = Apiato::call('Uploader@FindUploaderByIdTask', [$request->id]);
 
         // delete file
-        Storage::disk($uploader->is_storage ? 'local' : 'public')
+        Storage::disk($uploader->storage_driver)
             ->delete($uploader->path);
 
         // delete releted model

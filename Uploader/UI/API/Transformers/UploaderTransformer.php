@@ -35,6 +35,7 @@ class UploaderTransformer extends Transformer
             'client_original_name' => $entity->client_original_name,
             'label' => $entity->label,
             'extension' => $entity->extension,
+            'storage_driver' => $entity->storage_driver,
             'content_type' => $entity->content_type,
             'download_link' => route('api_uploader_download', $entity->getHashedKey()),
             'readable_size' => formatBytesUnits($entity->bytes),

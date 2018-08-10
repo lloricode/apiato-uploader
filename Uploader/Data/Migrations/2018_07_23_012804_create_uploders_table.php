@@ -20,9 +20,9 @@ class CreateUplodersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('content_type');
             $table->string('extension');
+            $table->enum('storage_driver', array_keys(config('filesystems.disks')))->default(config('filesystems.default'));
             $table->string('path')->collation = 'utf8_unicode_ci';
             $table->unsignedInteger('bytes')->comment('Size in Bytes');
-            $table->unsignedTinyInteger('is_storage')->default(true);
 
             $table->timestamp('created_at');
         });

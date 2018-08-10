@@ -31,7 +31,7 @@ class UploaderTask extends Task
 
         $filePath = $this->_storagePath($model);
 
-        $pathToSave = Storage::disk($modelRules->isStorage ? 'local' : 'public')->put($filePath, $file);
+        $pathToSave = Storage::disk($modelRules->storageDriver)->put($filePath, $file);
 
         try {
             return $this->repository->create([
@@ -43,7 +43,7 @@ class UploaderTask extends Task
                 'content_type' =>  $file->getClientMimeType(),
                 'extension' => $file->getClientOriginalExtension(),
                 'path' => $pathToSave,
-                'is_storage' => $modelRules->isStorage,
+                'storage_driver' => $modelRules->storageDriver,
                 'bytes' => $file->getClientSize(),
             ]);
         } catch (Exception $exception) {

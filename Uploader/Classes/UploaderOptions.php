@@ -2,10 +2,12 @@
 
 namespace App\Containers\Uploader\Classes;
 
+use App\Ship\Exceptions\InternalErrorException;
+
 class UploaderOptions
 {
     public $maxSize;
-    public $isStorage;
+    public $storageDriver;
     public $fileNamePrefix;
 
 
@@ -17,7 +19,7 @@ class UploaderOptions
     public function reset(): self
     {
         $this->fileNamePrefix = 'file';
-        $this->isStorage = true;
+        $this->storageDriver = config('filesystems.default');
         $this->maxSize = 20000000;  // 20 mb in byte decimal
 
         return $this;
@@ -29,9 +31,19 @@ class UploaderOptions
         return $this;
     }
 
-    public function isStorage(bool $isStorage): self
+    /**
+     * Must be existed in Config filesystems's disk
+     *
+     * @param boolean $storageDriver
+     * @return self
+     */
+    public function storageDriver(string $storageDriver): self
     {
-        $this->isStorage = $isStorage;
+        $drivers = array_keys(config('filesystems.disks'));
+
+        throw_if(!in_array($storageDriver, $drivers), InternalErrorException::class, 'Invalid storage parameter in ' . get_class($this) . '->storageDriver($storageDriver)');
+
+        $this->storageDriver = $storageDriver;
         return $this;
     }
     
