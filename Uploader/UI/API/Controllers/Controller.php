@@ -20,7 +20,7 @@ class Controller extends ApiController
      */
     public function findDownloadUploaderById(FindDownloadUploaderByIdRequest $request)
     {
-        $responseDonload = Apiato::call('Uploader@FindDownloadUploaderByIdAction', [$request]);
+        $responseDonload = Apiato::call('Uploader@DownloadUploaderByIdAction', [$request]);
 
         return $responseDonload;
     }

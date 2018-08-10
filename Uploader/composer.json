@@ -3,6 +3,10 @@
   "description": "Manage uploading file in Apiato project",
   "type": ["apiato-container", "library"],
   "license": "MIT",
+  "require": {
+    "league/flysystem-aws-s3-v3": "~1.0",
+    "league/flysystem-cached-adapter": "~1.0"
+  },
   "authors": [
       {
           "name": "Lloric Mayuga Garcia",

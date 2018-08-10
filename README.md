@@ -1,10 +1,11 @@
 # Apiato Uploader Container
-Manage uploading file in Apiato project
+Manage uploading file in Apiato project with dynamic storage driver including amason s3
 
 ## Installation
 - Copy folder `Uploader`, then paste in in your `apiato` project's container.
 - Then run commands
 ```
+composer update
 composer dumpautoload -o
 php artisan migrate
 ```

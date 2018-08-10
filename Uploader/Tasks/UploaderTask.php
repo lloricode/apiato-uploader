@@ -11,14 +11,17 @@ use App\Containers\Uploader\Contract\UploaderContract;
 use App\Containers\Uploader\Models\Uploader;
 use App\Ship\Exceptions\ValidationFailedException;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class UploaderTask extends Task
 {
     protected $repository;
+    private $_fileSystemConfig;
 
     public function __construct(UploaderRepository $repository)
     {
         $this->repository = $repository;
+        $this->_fileSystemConfig = config('filesystems');
     }
 
     public function run(UploaderContract $model, UploadedFile $file, string $label = null)
@@ -28,11 +31,9 @@ class UploaderTask extends Task
         if ($modelRules->maxSize < $file->getClientSize()) {
             throw new ValidationFailedException('Max file size allowed is ' . formatBytesUnits($modelRules->maxSize));
         }
-
-        $filePath = $this->_storagePath($model);
-
-        $pathToSave = Storage::disk($modelRules->storageDriver)->put($filePath, $file);
-
+        
+        $pathToSave = Storage::disk($modelRules->storageDriver)->put($this->_storagePath($model), $file);
+       
         try {
             return $this->repository->create([
                 'client_original_name' => $file->getClientOriginalName(),
@@ -51,12 +52,14 @@ class UploaderTask extends Task
         }
     }
 
-    private function _storagePath($model)
+    private function _storagePath(UploaderContract $model)
     {
         $modelclass = strtolower(get_class($model));
 
         $modelClassArray = explode('\\', $modelclass);
 
-        return Uploader::PATH_FOLDER . '/' . $modelClassArray[count($modelClassArray)-1] . '/' . md5($model->id);
+        $pathConfig = config('uploader-container.folder_path');
+
+        return Uploader::PATH_FOLDER . '/' . $pathConfig . $modelClassArray[count($modelClassArray)-1] . '/' . md5($model->id);
     }
 }
