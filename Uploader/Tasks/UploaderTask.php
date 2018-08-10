@@ -5,22 +5,19 @@ namespace App\Containers\Uploader\Tasks;
 use App\Containers\Uploader\Data\Repositories\UploaderRepository;
 use App\Ship\Exceptions\CreateResourceFailedException;
 use App\Ship\Parents\Tasks\Task;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use App\Containers\Uploader\Contract;
 use App\Containers\Uploader\Contract\UploaderContract;
-use File;
 use App\Containers\Uploader\Models\Uploader;
 use App\Ship\Exceptions\ValidationFailedException;
+use Illuminate\Support\Facades\Storage;
 
 class UploaderTask extends Task
 {
     protected $repository;
-    private $_fileSystem;
 
     public function __construct(UploaderRepository $repository)
     {
-        $this->_fileSystem = new Filesystem;
         $this->repository = $repository;
     }
 
@@ -32,12 +29,9 @@ class UploaderTask extends Task
             throw new ValidationFailedException('Max file size allowed is ' . formatBytesUnits($modelRules->maxSize));
         }
 
-        $fileName = md5(now()->format('Ymdhis').$model->id);
-        $filePath = $this->_storagePath($modelRules->isStorage, $model). '/'. $fileName;
+        $filePath = $this->_storagePath($model);
 
-        $this->_fileSystem->copy($file->getRealPath(), $filePath);
-
-        $pathToSave = $this->_removeLocalPath($modelRules->isStorage, $filePath);
+        $pathToSave = Storage::disk($modelRules->isStorage ? 'local' : 'public')->put($filePath, $file);
 
         try {
             return $this->repository->create([
@@ -57,32 +51,12 @@ class UploaderTask extends Task
         }
     }
 
-    private function _removeLocalPath($isStorage, $path)
-    {
-        $pathToRemove = $isStorage ? storage_path() : public_path();
-
-        return str_replace($pathToRemove, '', $path);
-    }
-
-    private function _storagePath($isStorage, $model)
+    private function _storagePath($model)
     {
         $modelclass = strtolower(get_class($model));
 
         $modelClassArray = explode('\\', $modelclass);
 
-        $folder = Uploader::PATH_FOLDER;
-        $storage =  $isStorage ? storage_path("app/$folder/") : public_path("assets/$folder/");
-        $storage .= $modelClassArray[count($modelClassArray)-1];
-        $storage .= '/' . md5($model->id);
-
-        return $this->_checkPathExist($storage);
-    }
-
-    private function _checkPathExist($path)
-    {
-        if (! file_exists($path)) {
-            File::makeDirectory($path, 0755, $recursive = true);
-        }
-        return $path;
+        return Uploader::PATH_FOLDER . '/' . $modelClassArray[count($modelClassArray)-1] . '/' . md5($model->id);
     }
 }

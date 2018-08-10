@@ -6,6 +6,7 @@ use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Requests\Request;
 use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Uploader\Models\Uploader;
+use Illuminate\Support\Facades\Storage;
 
 class FindDownloadUploaderByIdAction extends Action
 {
@@ -13,13 +14,13 @@ class FindDownloadUploaderByIdAction extends Action
     {
         $uploader = Apiato::call('Uploader@FindUploaderByIdTask', [$request->id]);
 
-        $wholePath = $uploader->is_storage ? storage_path() : public_path();
-        $wholePath .= $uploader->path;
+        $uploderable = $uploader->uploaderable;
+        $uploderableRules = $uploderable->uploaderRules();
 
-        $label = $uploader->label?:$uploader->uploaderable->uploaderRules()->fileNamePrefix;
+        $label = $uploader->label?:$uploderableRules->fileNamePrefix;
 
-        return response()->download(
-            $wholePath,
+        return Storage::disk($uploader->is_storage ? 'local' : 'public')->download(
+            $uploader->path,
             $label . now()->format('Ymd_Hi') . '.' . $uploader->extension,
             [
                 'Content-Type: ' . $uploader->content_type

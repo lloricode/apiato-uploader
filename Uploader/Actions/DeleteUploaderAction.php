@@ -4,7 +4,7 @@ namespace App\Containers\Uploader\Actions;
 
 use App\Ship\Parents\Actions\Action;
 use App\Ship\Parents\Requests\Request;
-use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Apiato\Core\Foundation\Facades\Apiato;
 
 class DeleteUploaderAction extends Action
@@ -14,10 +14,8 @@ class DeleteUploaderAction extends Action
         $uploader = Apiato::call('Uploader@FindUploaderByIdTask', [$request->id]);
 
         // delete file
-        $wholePath = $uploader->is_storage ? storage_path() : public_path();
-        $wholePath .= $uploader->path;
-
-        (new Filesystem)->delete($wholePath);
+        Storage::disk($uploader->is_storage ? 'local' : 'public')
+            ->delete($uploader->path);
 
         // delete releted model
         $uploader->uploaderable->uploaderDelete();
