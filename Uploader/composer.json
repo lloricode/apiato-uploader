@@ -1,7 +1,7 @@
 {
   "name": "lloricode/apiato-uploader",
   "description": "Manage uploading file in Apiato project",
-  "type": ["apiato-container", "library"],
+  "type": "apiato-container",
   "license": "MIT",
   "require": {
     "league/flysystem-aws-s3-v3": "~1.0",
