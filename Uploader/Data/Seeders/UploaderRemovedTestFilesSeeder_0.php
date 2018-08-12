@@ -10,9 +10,9 @@ class UploaderRemovedTestFilesSeeder_0 extends Seeder
 {
     public function run()
     {
-        $folder = Uploader::PATH_FOLDER . config('uploader-container.folder_path');
+        $folder = Uploader::PATH_FOLDER . '/' . config('uploader-container.folder_path');
         foreach (array_keys(config('filesystems.disks')) as $driver) {
-            Storage::disk($driver)->allFiles($folder);
+            Storage::disk($driver)->deleteDirectory($folder);
         }
     }
 }

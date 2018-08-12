@@ -22,10 +22,8 @@ trait UploaderTrait
     public function delete()
     {
         foreach ($this->uploaders as $uploader) {
+            
             // delete file
-            Storage::disk($uploader->storage_driver)
-                ->delete($uploader->path);
-
             $uploader->delete();
         }
 

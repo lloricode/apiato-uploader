@@ -7,8 +7,9 @@ use App\Ship\Exceptions\InternalErrorException;
 class UploaderOptions
 {
     public $maxSize;
-    public $storageDriver;
+    public $disk;
     public $fileNamePrefix;
+    public $enableDeleteFile;
 
 
     public static function create(): self
@@ -19,8 +20,9 @@ class UploaderOptions
     public function reset(): self
     {
         $this->fileNamePrefix = 'file';
-        $this->storageDriver = config('filesystems.default');
+        $this->disk = config('filesystems.default');
         $this->maxSize = 20000000;  // 20 mb in byte decimal
+        $this->enableDeleteFile = false;
 
         return $this;
     }
@@ -34,22 +36,28 @@ class UploaderOptions
     /**
      * Must be existed in Config filesystems's disk
      *
-     * @param boolean $storageDriver
+     * @param boolean $disk
      * @return self
      */
-    public function storageDriver(string $storageDriver): self
+    public function disk(string $disk): self
     {
-        $drivers = array_keys(config('filesystems.disks'));
+        $disks = array_keys(config('filesystems.disks'));
 
-        throw_if(!in_array($storageDriver, $drivers), InternalErrorException::class, 'Invalid storage parameter in ' . get_class($this) . '->storageDriver($storageDriver)');
+        throw_if(!in_array($disk, $disks), InternalErrorException::class, 'Invalid storage parameter in ' . get_class($this) . '->disk($disk)');
 
-        $this->storageDriver = $storageDriver;
+        $this->disk = $disk;
         return $this;
     }
     
     public function maxSize(int $maxSize): self
     {
         $this->maxSize = $maxSize;
+        return $this;
+    }
+
+    public function enableDeleteFile(bool $enableDeleteFile): self
+    {
+        $this->enableDeleteFile = $enableDeleteFile;
         return $this;
     }
 }

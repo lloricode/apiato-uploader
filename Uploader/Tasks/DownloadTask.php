@@ -14,8 +14,8 @@ class DownloadTask extends Task
         $uploderableRules = $uploderable->uploaderRules();
 
         $label = $uploader->label?:$uploderableRules->fileNamePrefix . now()->format('Ymd_Hi');
-
-        return Storage::disk($uploader->storage_driver)->download(
+ 
+        return Storage::disk($uploader->disk)->download(
             $uploader->path,
             $label  . '.' . $uploader->extension,
             [

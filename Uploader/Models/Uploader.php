@@ -3,6 +3,7 @@
 namespace App\Containers\Uploader\Models;
 
 use App\Ship\Parents\Models\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Uploader extends Model
 {
@@ -17,7 +18,7 @@ class Uploader extends Model
         'content_type',
         'path',
         'bytes',
-        'storage_driver',
+        'disk',
         'label',
         'client_original_name',
     ];
@@ -54,5 +55,13 @@ class Uploader extends Model
     public function uploaderable()
     {
         return $this->morphTo();
+    }
+
+    public function delete()
+    {
+        Storage::disk($this->disk)
+            ->delete($this->path);
+
+        parent::delete();
     }
 }

@@ -32,7 +32,7 @@ class UploaderTask extends Task
             throw new ValidationFailedException('Max file size allowed is ' . formatBytesUnits($modelRules->maxSize));
         }
         
-        $pathToSave = Storage::disk($modelRules->storageDriver)->put($this->_storagePath($model), $file);
+        $pathToSave = Storage::disk($modelRules->disk)->put($this->_storagePath($model), $file);
        
         try {
             return $this->repository->create([
@@ -44,7 +44,7 @@ class UploaderTask extends Task
                 'content_type' =>  $file->getClientMimeType(),
                 'extension' => $file->getClientOriginalExtension(),
                 'path' => $pathToSave,
-                'storage_driver' => $modelRules->storageDriver,
+                'disk' => $modelRules->disk,
                 'bytes' => $file->getClientSize(),
             ]);
         } catch (Exception $exception) {
