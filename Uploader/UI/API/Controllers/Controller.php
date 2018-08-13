@@ -3,7 +3,7 @@
 namespace App\Containers\Uploader\UI\API\Controllers;
 
 use App\Containers\Uploader\UI\API\Requests\DeleteUploaderRequest;
-use App\Containers\Uploader\UI\API\Requests\FindDownloadUploaderByIdRequest;
+use App\Containers\Uploader\UI\API\Requests\DownloadUploaderByIdRequest;
 use App\Ship\Parents\Controllers\ApiController;
 use Apiato\Core\Foundation\Facades\Apiato;
 
@@ -15,10 +15,10 @@ use Apiato\Core\Foundation\Facades\Apiato;
 class Controller extends ApiController
 {
     /**
-     * @param FindDownloadUploaderByIdRequest $request
-     * @return array
+     * @param DownloadUploaderByIdRequest $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse\StreamedResponse
      */
-    public function findDownloadUploaderById(FindDownloadUploaderByIdRequest $request)
+    public function findDownloadUploaderById(DownloadUploaderByIdRequest $request)
     {
         $responseDonload = Apiato::call('Uploader@DownloadUploaderByIdAction', [$request]);
 

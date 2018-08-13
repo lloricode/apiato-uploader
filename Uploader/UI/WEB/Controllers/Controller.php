@@ -4,15 +4,15 @@ namespace App\Containers\Uploader\UI\WEB\Controllers;
 
 use App\Ship\Parents\Controllers\WebController;
 use Apiato\Core\Foundation\Facades\Apiato;
-use App\Containers\Uploader\UI\API\Requests\FindDownloadUploaderByIdRequest;
+use App\Containers\Uploader\UI\API\Requests\DownloadUploaderByIdRequest;
 
 class Controller extends WebController
 {
     /**
-     * @param FindDownloadUploaderByIdRequest $request
-     * @return array
+     * @param DownloadUploaderByIdRequest $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse\StreamedResponse
      */
-    public function findDownloadUploaderById(FindDownloadUploaderByIdRequest $request)
+    public function findDownloadUploaderById(DownloadUploaderByIdRequest $request)
     {
         $responseDonload = Apiato::call('Uploader@DownloadUploaderByIdAction', [$request]);
 

@@ -5,9 +5,9 @@ namespace App\Containers\Uploader\UI\API\Requests;
 use App\Ship\Parents\Requests\Request;
 
 /**
- * Class FindDownloadUploaderByIdRequest.
+ * Class DownloadUploaderByIdRequest.
  */
-class FindDownloadUploaderByIdRequest extends Request
+class DownloadUploaderByIdRequest extends Request
 {
 
     /**
@@ -15,7 +15,7 @@ class FindDownloadUploaderByIdRequest extends Request
      *
      * @var string
      */
-    // protected $transporter = \App\Ship\Transporters\DataTransporter::class;
+    protected $transporter = \App\Containers\Uploader\Data\Transporters\DownloadUploaderByIdTransporter::class;
 
     /**
      * Define which Roles and/or Permissions has access to this request.
