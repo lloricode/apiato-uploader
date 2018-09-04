@@ -58,7 +58,7 @@ class Product extends Model implements UploaderContract // <--------  add
     {
         return UploaderOptions::create()
             ->fileNamePrefix('file-')
-            ->disk('local') // any drive in config/filesystems.disk
+            ->disk('local') // any disk in config/filesystems.disk
             ->maxSize(20000000); // byte in decimal = 20mb
     }
 }
