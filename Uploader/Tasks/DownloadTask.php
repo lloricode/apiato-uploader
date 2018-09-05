@@ -8,19 +8,8 @@ use App\Containers\Uploader\Models\Uploader;
 
 class DownloadTask extends Task
 {
-    public function run(Uploader $uploader)
+    public function run(Uploader $uploader, $type = 'api')
     {
-        $uploderable = $uploader->uploaderable;
-        $uploderableRules = $uploderable->uploaderRules();
-
-        $label = $uploader->label?:$uploderableRules->fileNamePrefix . now()->format('Ymd_Hi');
- 
-        return Storage::disk($uploader->disk)->download(
-            $uploader->path,
-            $label  . '.' . $uploader->extension,
-            [
-                'Content-Type: ' . $uploader->content_type
-            ]
-        );
+        return redirect()->route("lloricode.{$type}.uploader.download", $uploader);
     }
 }

@@ -1,13 +1,16 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Config;
 
-class CreateUplodersTable extends Migration
+class CreateUploadersTable extends Migration
 {
-
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
@@ -20,7 +23,7 @@ class CreateUplodersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('content_type');
             $table->string('extension');
-            $table->enum('disk', array_keys(config('filesystems.disks')))->default(config('filesystems.default'));
+            $table->enum('disk', array_keys(Config::get('filesystems.disks')))->default(config('filesystems.default'));
             $table->string('path')->collation = 'utf8_unicode_ci';
             $table->unsignedInteger('bytes')->comment('Size in Bytes');
 
@@ -30,6 +33,8 @@ class CreateUplodersTable extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
     public function down()
     {

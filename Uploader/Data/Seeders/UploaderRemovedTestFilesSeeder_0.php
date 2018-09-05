@@ -14,7 +14,13 @@ class UploaderRemovedTestFilesSeeder_0 extends Seeder
         $folder = Uploader::PATH_FOLDER . '/' . config('uploader-container.folder_path');
         foreach (array_keys($config['disks']) as $driver) {
             if ($config['cloud'] == $driver) {
-                continue;
+                $cloud = $config['disks'][$config['cloud']];
+                if (empty($cloud['key']) or
+                empty($cloud['key']) or
+                empty($cloud['key']) or
+                empty($cloud['key'])) {
+                    continue;
+                }
             }
 
             Storage::disk($driver)->deleteDirectory($folder);

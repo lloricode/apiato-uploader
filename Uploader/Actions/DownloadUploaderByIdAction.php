@@ -8,10 +8,10 @@ use Apiato\Core\Foundation\Facades\Apiato;
 
 class DownloadUploaderByIdAction extends Action
 {
-    public function run(DownloadUploaderByIdTransporter $request)
+    public function run(DownloadUploaderByIdTransporter $request, $type = 'api')
     {
         $uploader = Apiato::call('Uploader@FindUploaderByIdTask', [$request->id]);
 
-        return Apiato::call('Uploader@DownloadTask', [$uploader]);
+        return Apiato::call('Uploader@DownloadTask', [$uploader, $request->type]);
     }
 }
