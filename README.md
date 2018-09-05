@@ -5,8 +5,8 @@ Manage uploading file in Apiato project with dynamic storage driver including am
 - Copy folder `Uploader`, then paste in in your `apiato` project's container.
 - Then run commands
 ```
-composer update
 composer dumpautoload -o
+composer update
 php artisan migrate
 ```
 
