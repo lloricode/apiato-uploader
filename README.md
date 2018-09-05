@@ -5,8 +5,8 @@ Manage uploading file in Apiato project with dynamic storage driver including am
 - Copy folder `Uploader`, then paste in in your `apiato` project's container.
 - Then run commands
 ```
-composer update
 composer dumpautoload -o
+composer update
 php artisan migrate
 ```
 
@@ -19,9 +19,9 @@ php artisan migrate
 namespace App\Containers\Product\Models;
 
 use App\Ship\Parents\Models\Model;
-use App\Containers\Uploader\Contract\UploaderContract; // <--------  add
-use App\Containers\Uploader\Classes\UploaderOptions; // <--------  add
-use App\Containers\Uploader\Traits\UploaderTrait; // <--------  add
+use Lloricode\LaravelUploader\Contract\UploaderContract; // <--------  add
+use Lloricode\LaravelUploader\UploaderOptions; // <--------  add
+use Lloricode\LaravelUploader\Traits\UploaderTrait; // <--------  add
 
 class Product extends Model implements UploaderContract // <--------  add
 {
