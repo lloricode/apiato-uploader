@@ -3,8 +3,8 @@
 namespace App\Containers\Uploader\Providers;
 
 use App\Ship\Parents\Providers\MainProvider;
-use Lloricode\LaravelUploader\Providers\LaravelUploaderServiceProvider;
 use Lloricode\LaravelUploader\Providers\LaravelUploaderRouteServiceProvider;
+use Lloricode\LaravelUploader\Providers\LaravelUploaderServiceProvider;
 
 /**
  * Class MainServiceProvider.
@@ -13,7 +13,6 @@ use Lloricode\LaravelUploader\Providers\LaravelUploaderRouteServiceProvider;
  */
 class MainServiceProvider extends MainProvider
 {
-
     /**
      * Container Service Providers.
      *
@@ -29,8 +28,7 @@ class MainServiceProvider extends MainProvider
      *
      * @var  array
      */
-    public $aliases = [
-        // 'Foo' => Bar::class,
+    public $aliases = [// 'Foo' => Bar::class,
     ];
 
     /**

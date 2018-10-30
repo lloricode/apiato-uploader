@@ -11,6 +11,6 @@ return [
     |
     */
 
-    'implementation' =>  App\Containers\Uploader\Models\Uploader::class,
+    'implementation' => App\Containers\Uploader\Models\Uploader::class,
 
 ];

@@ -6,5 +6,5 @@ use App\Containers\Uploader\Classes\UploaderOptions;
 
 interface UploaderContract
 {
-    public function uploaderRules() :UploaderOptions;
+    public function uploaderRules(): UploaderOptions;
 }

@@ -2,10 +2,10 @@
 
 namespace App\Containers\Uploader\UI\API\Controllers;
 
+use Apiato\Core\Foundation\Facades\Apiato;
 use App\Containers\Uploader\UI\API\Requests\DeleteUploaderRequest;
 use App\Containers\Uploader\UI\API\Requests\DownloadUploaderByIdRequest;
 use App\Ship\Parents\Controllers\ApiController;
-use Apiato\Core\Foundation\Facades\Apiato;
 
 /**
  * Class Controller
@@ -24,7 +24,6 @@ class Controller extends ApiController
 
         return $responseDonload;
     }
-
 
     /**
      * @param DeleteUploaderRequest $request

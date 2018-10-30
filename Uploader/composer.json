@@ -4,10 +4,10 @@
   "type": "apiato-container",
   "license": "MIT",
   "authors": [
-      {
-          "name": "Lloric Mayuga Garcia",
-          "email": "lloricode@gmail.com"
-      }
+    {
+      "name": "Lloric Mayuga Garcia",
+      "email": "lloricode@gmail.com"
+    }
   ],
   "require": {
     "lloricode/laravel-uploader": "^1.0",

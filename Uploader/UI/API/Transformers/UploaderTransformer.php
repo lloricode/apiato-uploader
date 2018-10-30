@@ -41,11 +41,11 @@ class UploaderTransformer extends Transformer
             'readable_size' => formatBytesUnits($entity->bytes),
 
             'created_at' => (string) $entity->created_at,
-            'readable_created_at'  => $entity->created_at->diffForHumans(),
+            'readable_created_at' => $entity->created_at->diffForHumans(),
         ];
 
         $response = $this->ifAdmin([
-            'real_id'    => $entity->id,
+            'real_id' => $entity->id,
         ], $response);
 
         return $response;

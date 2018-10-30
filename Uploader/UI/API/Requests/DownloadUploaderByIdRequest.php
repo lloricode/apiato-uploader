@@ -9,7 +9,6 @@ use App\Ship\Parents\Requests\Request;
  */
 class DownloadUploaderByIdRequest extends Request
 {
-
     /**
      * The assigned Transporter for this Request
      *
@@ -24,7 +23,7 @@ class DownloadUploaderByIdRequest extends Request
      */
     protected $access = [
         'permissions' => '',
-        'roles'       => '',
+        'roles' => '',
     ];
 
     /**

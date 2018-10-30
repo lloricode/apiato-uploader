@@ -2,9 +2,8 @@
 
 namespace App\Containers\Uploader\Tasks;
 
-use App\Ship\Parents\Tasks\Task;
-use Illuminate\Support\Facades\Storage;
 use App\Containers\Uploader\Models\Uploader;
+use App\Ship\Parents\Tasks\Task;
 
 class DownloadTask extends Task
 {

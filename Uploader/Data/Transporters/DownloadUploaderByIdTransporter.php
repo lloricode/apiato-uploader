@@ -6,7 +6,6 @@ use App\Ship\Parents\Transporters\Transporter;
 
 class DownloadUploaderByIdTransporter extends Transporter
 {
-
     /**
      * @var array
      */
@@ -18,14 +17,12 @@ class DownloadUploaderByIdTransporter extends Transporter
             // allow for undefined properties
             // 'additionalProperties' => true,
             'id' => [
-                'type' => 'integer'
-            ]
+                'type' => 'integer',
+            ],
         ],
-        'required'   => [
-            // define the properties that MUST be set
+        'required' => [// define the properties that MUST be set
         ],
-        'default'    => [
-            // provide default values for specific properties here
-        ]
+        'default' => [// provide default values for specific properties here
+        ],
     ];
 }

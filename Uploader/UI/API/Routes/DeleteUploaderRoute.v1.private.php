@@ -17,8 +17,8 @@
 /** @var Route $router */
 $router->delete('uploaders/{id}', [
     'as' => 'api_uploader_delete',
-    'uses'  => 'Controller@deleteUploader',
+    'uses' => 'Controller@deleteUploader',
     'middleware' => [
-      'auth:api',
+        'auth:api',
     ],
 ]);

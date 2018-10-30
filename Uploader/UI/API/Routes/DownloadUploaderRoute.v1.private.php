@@ -17,8 +17,8 @@
 /** @var Route $router */
 $router->get('uploaders/{id}', [
     'as' => 'api_uploader_download',
-    'uses'  => 'Controller@findDownloadUploaderById',
+    'uses' => 'Controller@findDownloadUploaderById',
     'middleware' => [
-      'auth:api',
+        'auth:api',
     ],
 ]);

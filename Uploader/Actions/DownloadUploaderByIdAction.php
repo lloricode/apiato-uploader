@@ -2,9 +2,9 @@
 
 namespace App\Containers\Uploader\Actions;
 
-use App\Ship\Parents\Actions\Action;
-use App\Containers\Uploader\Data\Transporters\DownloadUploaderByIdTransporter;
 use Apiato\Core\Foundation\Facades\Apiato;
+use App\Containers\Uploader\Data\Transporters\DownloadUploaderByIdTransporter;
+use App\Ship\Parents\Actions\Action;
 
 class DownloadUploaderByIdAction extends Action
 {
